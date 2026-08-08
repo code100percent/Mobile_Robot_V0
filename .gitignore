@@ -1,0 +1,41 @@
+# ROS 2 (Colcon) directories
+install/
+log/
+
+# Package-specific build folders
+bin/
+obj/
+lib/
+msg_gen/
+srv_gen/
+
+# ==========================================
+# Python Artifacts
+# ==========================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.pyenv/
+env/
+venv/
+ENV/
+
+# ==========================================
+# C++ / Editor / System Artifacts
+# ==========================================
+# Object files and libraries
+*.o
+*.so
+*.a
+
+# IDES (VS Code, CLion)
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
