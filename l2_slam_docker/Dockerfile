@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     python3-colcon-common-extensions \
     ros-humble-pcl-ros \
     ros-humble-pcl-conversions \
+    ros-humble-visualization-msgs \
     ros-humble-tf2-eigen \
     && rm -rf /var/lib/apt/lists/*
 
