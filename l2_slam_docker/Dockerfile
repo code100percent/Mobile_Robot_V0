@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libpcl-dev \
     libeigen3-dev \
     libusb-1.0-0-dev \
+    iputils-ping \
     python3-colcon-common-extensions \
     ros-humble-pcl-ros \
     ros-humble-pcl-conversions \
@@ -19,13 +20,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /root/unitree_ws/src
 
-RUN git clone https://github.com/unitreerobotics/unilidar_sdk2.git
-RUN git clone https://github.com/dfloreaa/point_lio_ros2.git
+RUN clone https://github.com/code100percent/Mobile_Manipulation_Robot_V0.git
 
 WORKDIR /root/unitree_ws
 
 RUN source /opt/ros/humble/setup.bash && \
-    colcon build --packages-select unitree_lidar_ros2  point_lio_ros2 
+    colcon build
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
     echo "source /root/unitree_ws/install/setup.bash" >> /root/.bashrc
