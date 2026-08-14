@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     ros-humble-tf2-eigen \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install zstandard --break-system-packages
+RUN pip3 install zstandard
 
 WORKDIR /root/ws_livox/src
 
