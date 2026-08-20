@@ -13,8 +13,8 @@ def generate_launch_description():
         output='screen',
         parameters= [
                 
-                {'initialize_type': 2},
-                {'work_mode': 0},
+                {'initialize_type': 1},
+                {'work_mode': 8},
                 {'use_system_timestamp': True},
                 {'range_min': 0.0},
                 {'range_max': 100.0},
@@ -23,10 +23,10 @@ def generate_launch_description():
                 {'serial_port': '/dev/ttyACM0'},
                 {'baudrate': 4000000},
 
-                {'lidar_port': 6101},
-                {'lidar_ip': '192.168.1.62'},
-                {'local_port': 6201},
-                {'local_ip': '192.168.1.2'},
+                # {'lidar_port': 6101},
+                # {'lidar_ip': '192.168.1.62'},
+                # {'local_port': 6201},
+                # {'local_ip': '192.168.1.2'},
                 
                 {'cloud_frame': "unilidar_lidar"},
                 {'cloud_topic': "unilidar/cloud"},
