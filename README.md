@@ -2,6 +2,12 @@
 
 A ROS 2 repository for a mobile manipulation robot platform featuring 3D Point-LIO SLAM, Unitree L2 LiDAR integration, 2D scan-matching SLAM, and robotic arm hardware/simulation configs.
 
+
+
+
+<img width="1204" height="1600" alt="WhatsApp Image 2026-09-01 at 2 28 35 AM" src="https://github.com/user-attachments/assets/4832694c-e622-49a7-9102-96b2108e9c02" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ddd771d1-30e1-4299-81af-e666b2a5319e" />
+
 ## 📋 Prerequisites
 
 ### 1. System & ROS 2 Environment
