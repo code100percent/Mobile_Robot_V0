@@ -8,6 +8,11 @@ A ROS 2 repository for a mobile manipulation robot platform featuring 3D Point-L
 <img width="1204" height="1600" alt="WhatsApp Image 2026-09-01 at 2 28 35 AM" src="https://github.com/user-attachments/assets/4832694c-e622-49a7-9102-96b2108e9c02" />
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ddd771d1-30e1-4299-81af-e666b2a5319e" />
 
+POINT-Lio SLAM Implementation using unitree 4d lidar
+<img width="1671" height="918" alt="image" src="https://github.com/user-attachments/assets/de675176-15c4-4204-8e16-633442ad04cd" />
+
+
+
 ## 📋 Prerequisites
 
 ### 1. System & ROS 2 Environment
