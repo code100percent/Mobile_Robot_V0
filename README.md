@@ -1,154 +1,129 @@
 # Mobile Manipulation Robot (V0)
 
-A ROS 2 repository for a mobile manipulation robot platform featuring 3D Point-LIO SLAM, Unitree L2 LiDAR integration, 2D scan-matching SLAM, and robotic arm hardware/simulation configs.
+A ROS 2-based mobile manipulation platform integrating autonomous navigation, multi-modal SLAM, 3D LiDAR perception, and robotic arm control.
+
+The repository brings together multiple robotics subsystems, including **Point-LIO 3D LiDAR-Inertial SLAM**, **Cartographer**, **RTAB-Map visual SLAM**, **Nav2 autonomous navigation**, and robotic arm hardware and simulation configurations.
 
 
+## System Overview
 
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="https://github.com/user-attachments/assets/267519e9-1fc2-43e2-885e-6ab0c90d2c9e" width="400" alt="Mobile Manipulation Robot"/>
+    </td>
+    <td align="center" width="50%">
+      <img src="https://github.com/user-attachments/assets/4ce039ac-ff57-4c08-9bd9-2af368b17a31" width="400" alt="Mobile Manipulation Robot"/>
+    </td>
+  </tr>
+</table>
 
-<img width="504" height="696" alt="Screenshot from 2026-11-06 22-14-59" src="https://github.com/user-attachments/assets/267519e9-1fc2-43e2-885e-6ab0c90d2c9e" />
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ddd771d1-30e1-4299-81af-e666b2a5319e" />
+---
 
-POINT-Lio SLAM Implementation using unitree 4d lidar
-<img width="1671" height="918" alt="image" src="https://github.com/user-attachments/assets/de675176-15c4-4204-8e16-633442ad04cd" />
+## SLAM & Autonomous Navigation
 
+### 1. 2D SLAM – Cartographer
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/93cc2f9b-0184-4043-83cc-a4e0e9655074" width="750" alt="Cartographer 2D SLAM Map"/>
+</p>
 
-## 📋 Prerequisites
+### 2. Autonomous Navigation – Nav2
 
-### 1. System & ROS 2 Environment
-- **OS**: Ubuntu 22.04 LTS (recommended)
-- **ROS 2**: Humble Hawksbill or Jazzy Jalisco
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a813d1f4-5a67-4a75-9b31-16cdb1cbcee8" width="650" alt="Nav2 Autonomous Navigation"/>
+</p>
 
-### 2. Core Dependencies
+### 3. Visual SLAM – RTAB-Map
 
-```bash
-sudo apt update && sudo apt install -y \
-    build-essential cmake git \
-    libpcl-dev libeigen3-dev libusb-1.0-0-dev \
-    python3-colcon-common-extensions python3-pip \
-    ros-$ROS_DISTRO-pcl-ros \
-    ros-$ROS_DISTRO-pcl-conversions \
-    ros-$ROS_DISTRO-visualization-msgs \
-    ros-$ROS_DISTRO-tf2-eigen
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ddd771d1-30e1-4299-81af-e666b2a5319e" width="750" alt="RTAB-Map Visual SLAM"/>
+</p>
 
-pip3 install zstandard
+### 4. 3D LiDAR-Inertial SLAM – Point-LIO
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/de675176-15c4-4204-8e16-633442ad04cd" width="750" alt="Point-LIO SLAM using Unitree L2 LiDAR"/>
+</p>
+
+---
+
+## Features
+
+- **Mobile Robot Platform:** ROS 2-based robot description, URDF/Xacro models, and configuration.
+- **3D LiDAR SLAM:** Point-LIO integration for LiDAR-Inertial Odometry and 3D mapping.
+- **2D SLAM:** LiDAR-based scan-matching mapping and localization.
+- **Visual SLAM:** RTAB-Map integration for RGB-D-based mapping.
+- **Autonomous Navigation:** Nav2 integration with 2D occupancy grid maps.
+- **LiDAR Integration:** Unitree L2 LiDAR driver and data processing.
+- **Robotic Manipulation:** Robotic arm hardware drivers, control, and simulation configurations.
+- **Point Cloud Processing:** Point cloud compression utilities.
+- **Docker Support:** Containerized environment for LiDAR and SLAM dependencies.
+
+---
+
+## Technology Stack
+
+| Component | Technology |
+|---|---|
+| Robotics Middleware | ROS 2 Humble / Jazzy |
+| Programming Languages | C++, Python |
+| Robot Description | URDF / Xacro |
+| 2D SLAM | Cartographer, SLAM Toolbox |
+| Visual SLAM | RTAB-Map |
+| 3D SLAM | Point-LIO |
+| Autonomous Navigation | Nav2 |
+| LiDAR | Unitree L2, YDLIDAR X2 |
+| Visualization | RViz2 |
+| Point Cloud Processing | PCL |
+| Containerization | Docker |
+
+---
+
+## Repository Structure
+
+```text
+ws_mobile/
+│
+├── mobile_robot/
+│   └── Robot description, URDF/Xacro, models and configurations
+│
+├── bot_bringup/
+│   └── Robot bringup and 2D SLAM launch configurations
+│
+├── Desktop-Robotic-Arm/
+│   └── Robotic arm drivers, control and simulation configurations
+│
+├── unilidar_sdk2/
+│   └── ROS 2 driver for Unitree L2 LiDAR
+│
+├── point_lio_ros2/
+│   └── Point-LIO 3D LiDAR-Inertial SLAM
+│
+├── pointcloud_compression/
+│   └── Point cloud compression utilities
+│
+└── l2_slam_docker/
+    └── Docker environment for ROS 2 Humble and SLAM dependencies
 ```
 
 ---
 
-### ⚠️ Critical Requirement: `Livox-SDK2` & `livox_ros_driver2`
+## Prerequisites
 
-> **IMPORTANT**: `point_lio_ros2` **will not build or work** without `Livox-SDK2` installed system-wide and `livox_ros_driver2` built in your workspace.
->
-> **Why it's required:**
-> - `point_lio_ros2` relies on C++ headers and data structures from **Livox-SDK2** for low-latency point cloud processing.
-> - `point_lio_ros2` uses custom ROS message types (`livox_ros_driver2/msg/CustomMsg`) defined by **livox_ros_driver2** to receive timestamped LiDAR & IMU point data streams.
+### 1. System Requirements
 
-#### Installation Steps:
+| Requirement | Version |
+|---|---|
+| Operating System | Ubuntu 22.04 LTS (recommended) |
+| ROS 2 | Humble Hawksbill / Jazzy Jalisco |
+| Build System | Colcon |
+| CMake | 3.8+ |
+| Docker | Optional |
 
-1. **Install `Livox-SDK2` system-wide:**
-   ```bash
-   git clone https://github.com/Livox-SDK/Livox-SDK2.git
-   cd Livox-SDK2 && mkdir build && cd build
-   cmake .. && make -j
-   sudo make install
-   ```
-
-2. **Build `livox_ros_driver2`:**
-   ```bash
-   git clone https://github.com/Livox-SDK/livox_ros_driver2.git ~/ws_livox/src/livox_ros_driver2
-   cd ~/ws_livox
-   ./src/livox_ros_driver2/build.sh humble   # (replace 'humble' with your ROS distro)
-   source ~/ws_livox/install/setup.bash
-   ```
-
----
-
-## 📁 Repository Structure
-
-- **`mobile_robot/`** — Mobile robot base description (URDF/Xacro, models, configuration).
-- **`bot_bringup/`** — Launch files and configuration for 2D SLAM (`slam_toolbox` scan-matching) and robot bringup.
-- **`Desktop-Robotic-Arm/`** — Robotic arm configuration and driver/control packages.
-- **`unilidar_sdk2/`** — ROS 2 driver for Unitree L2 LiDAR.
-- **`point_lio_ros2/`** — Point-LIO 3D LiDAR-Inertial Odometry and Mapping package.
-- **`pointcloud_compression/`** — Utilities for compressing point cloud data streams.
-- **`l2_slam_docker/`** — Docker container environment setup for ROS 2 Humble + SLAM dependencies.
-
----
-
-## 🚀 Quick Start
-
-### 1. Build Workspace
+### 2. Install Core Dependencies
 
 ```bash
-cd ~/ws_mobile
-colcon build --symlink-install
-source install/setup.bash
-```
+sudo apt update
 
----
-
-### 2. Launching 3D SLAM (Unitree L2 + Point-LIO)
-
-**Start Unitree L2 LiDAR node:**
-```bash
-ros2 launch unitree_lidar_ros2 launch.py
-```
-
-**Start Point-LIO 3D Mapping:**
-```bash
-ros2 launch point_lio mapping_unilidar_l2.launch.py
-```
-
----
-
-### 3. Launching 2D SLAM (Scan-Matching)
-
-If running 2D mapping without wheel encoders using `bot_bringup`:
-
-```bash
-# 1. Start LiDAR driver (e.g., YDLidar X2)
-ros2 launch ydlidar_ros2_driver X2.launch.py
-
-# 2. Launch SLAM Toolbox bringup
-ros2 launch bot_bringup slam_bringup.launch.py
-
-# 3. Teleop & RViz2
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-rviz2
-```
-
----
-
-## 🐳 Running with Docker
-
-Build and run the ROS 2 Humble container for Point-LIO & LiDAR drivers:
-
-```bash
-# Build image
-docker build -t l2-slam:humble ./l2_slam_docker
-
-# Run container with host network access
-docker run -it --network host --name l2_run l2-slam:humble
-```
-
----
-
-## 🔧 Network & Buffer Tuning
-
-If experiencing UDP packet drops or high network latency from LiDAR point clouds (e.g. Unitree L2 on Raspberry Pi), increase socket receive buffer limits:
-
-```bash
-sudo sysctl -w net.core.rmem_max=26214400
-sudo sysctl -w net.core.rmem_default=26214400
-```
-
----
-
-## 🔗 References & Dependencies
-
-- [Unitree Unilidar SDK 2](https://github.com/unitreerobotics/unilidar_sdk2)
-- [Point-LIO ROS 2](https://github.com/dfloreaa/point_lio_ros2)
-- [Livox ROS Driver 2](https://github.com/Livox-SDK/livox_ros_driver2)
-- [Livox SDK 2](https://github.com/Livox-SDK/Livox-SDK2)
-
+sudo
