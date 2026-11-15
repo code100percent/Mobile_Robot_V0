@@ -1,0 +1,10 @@
+# Preserve existing odometry defaults; calibrate against firmware before driving.
+encoder_odometry:
+  ros__parameters:
+    wheel_diameter: 0.10
+    wheel_track: 0.35
+    ticks_per_revolution: 900.0
+    ticks_topic: /wheel_ticks
+    odom_topic: /odom
+    odom_frame: odom
+    base_frame: base_footprint

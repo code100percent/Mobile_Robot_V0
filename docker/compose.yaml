@@ -1,0 +1,17 @@
+services:
+  robot:
+    image: l2-slam:humble
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        BUILD_JOBS: "${BUILD_JOBS:-2}"
+    network_mode: host
+    ipc: host
+    init: true
+    stdin_open: true
+    tty: true
+    environment:
+      ROS_DOMAIN_ID: "${ROS_DOMAIN_ID:-0}"
+      ROS_LOCALHOST_ONLY: "0"
+    command: ["bash"]

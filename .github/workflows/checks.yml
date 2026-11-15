@@ -1,0 +1,24 @@
+name: Repository checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  structure-and-odometry:
+    runs-on: ubuntu-latest
+    container: ros:humble-ros-base
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test message dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ros-humble-nav-msgs ros-humble-tf2-ros
+      - name: Check repository structure
+        run: bash scripts/check.sh
+      - name: Check encoder odometry
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          export PYTHONPATH="$PWD/mobile_robot_driver${PYTHONPATH:+:$PYTHONPATH}"
+          python3 -m unittest discover -s mobile_robot_driver/test -p 'test_odometry.py'

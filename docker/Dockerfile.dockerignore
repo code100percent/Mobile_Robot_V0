@@ -1,0 +1,36 @@
+# Applied to docker/Dockerfile with the repository root as build context.
+**/.git
+**/.vscode
+**/.idea
+**/build
+**/install
+**/log
+**/__pycache__
+**/.pytest_cache
+**/*.pyc
+**/*.pyo
+**/*venv*
+**/.env
+**/.env.*
+**/*.swp
+**/*~
+# Recorded sensor data and generated maps are not source dependencies.
+**/PCD
+**/*.bag
+**/*.db3
+**/*.mcap
+**/*.ply
+# Keep vendor SDK libraries (.a/.so); Unitree links against them.
+
+# Point-LIO documentation media and runtime logs.
+point_lio_ros2/image
+point_lio_ros2/Log
+data
+
+# Untested package: retained in the repository, excluded from the image.
+pointcloud_compression
+
+# Firmware and experiments are separate from the runtime image.
+firmware
+experiments
+**/network_config.h

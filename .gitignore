@@ -39,3 +39,26 @@ ENV/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Workspace output and local Python environments
+build/
+.venv/
+*-venv/
+# Runtime data and downloaded model weights
+/data/
+**/PCD/
+*.bag
+*.db3
+*.mcap
+*.ply
+*.pt
+*.onnx
+# Local connection settings (examples remain tracked)
+.env
+.env.*
+!.env.example
+network_config.h
+# Vendor SDK libraries are required source dependencies.
+!unilidar_sdk2/unitree_lidar_sdk/lib/
+!unilidar_sdk2/unitree_lidar_sdk/lib/**/
+!unilidar_sdk2/unitree_lidar_sdk/lib/**/*.a

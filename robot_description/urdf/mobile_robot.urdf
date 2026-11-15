@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<robot name="mobile_robot_rtabmap">
+
+  <material name="white_board"><color rgba="0.90 0.90 0.90 1.0"/></material>
+  <material name="wood"><color rgba="0.72 0.53 0.35 1.0"/></material>
+  <material name="black"><color rgba="0.05 0.05 0.05 1.0"/></material>
+  <material name="metal_grey"><color rgba="0.55 0.55 0.58 1.0"/></material>
+  <material name="laptop_silver"><color rgba="0.75 0.75 0.75 1.0"/></material>
+
+  <!-- ================= base_footprint ================= -->
+  <link name="base_footprint"/>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <!-- lifts base_link so wheel bottoms touch the ground plane (z=0) -->
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= BASE PLATE ================= -->
+  <!-- 1 ft + 9 cm = 0.3948 m long, 11 in = 0.2794 m wide, 1.5 cm thick -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.3948 0.2794 0.015"/></geometry>
+      <material name="white_board"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.3948 0.2794 0.015"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="1.5"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.009787" ixy="0" ixz="0" iyy="0.019511" iyz="0" izz="0.029243"/>
+    </inertial>
+
+    <!-- 4 threaded support rods rising from base to middle plate (visual only) -->
+    <visual>
+      <origin xyz="0.15 0.10 0.0475" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.08"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+    <visual>
+      <origin xyz="0.15 -0.10 0.0475" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.08"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.15 0.10 0.0475" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.08"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.15 -0.10 0.0475" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.08"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+  </link>
+
+  <!-- ================= WHEELS (diff drive) ================= -->
+  <!-- radius 5 cm, width 4 cm -->
+
+  
+
+  <link name="wheel_rear_left">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.05" length="0.04"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.05" length="0.04"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.15"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.00011375" ixy="0" ixz="0" iyy="0.00011375" iyz="0" izz="0.0001875"/>
+    </inertial>
+  </link>
+  <joint name="joint_wheel_rear_left" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_rear_left"/>
+    <origin xyz="-0.1 0.1547 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="wheel_rear_right">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.05" length="0.04"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry><cylinder radius="0.05" length="0.04"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.15"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.00011375" ixy="0" ixz="0" iyy="0.00011375" iyz="0" izz="0.0001875"/>
+    </inertial>
+  </link>
+  <joint name="joint_wheel_rear_right" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_rear_right"/>
+    <origin xyz="-0.1 -0.1547 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="caster">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry><sphere radius="0.025"/></geometry>
+        <material name="white_board"/>
+    </visual>
+  </link>
+   
+  <joint name="caster_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="caster"/>
+    <origin xyz="0.15 0 -0.025" rpy="0 0 0"/>
+  </joint>
+
+
+  <!-- ================= MIDDLE PLATE ================= -->
+  <!-- same footprint as base: 1 ft + 9 cm x 11 in, thickness assumed 1.5 cm -->
+  <link name="middle_plate">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.3948 0.2794 0.015"/></geometry>
+      <material name="white_board"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.3948 0.2794 0.015"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.006525" ixy="0" ixz="0" iyy="0.013008" iyz="0" izz="0.019495"/>
+    </inertial>
+
+    <!-- 4 taller threaded rods rising from middle to top plate (visual only) -->
+    <visual>
+      <origin xyz="0.13 0.09 0.1825" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.35"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+    <visual>
+      <origin xyz="0.13 -0.09 0.1825" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.35"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.13 0.09 0.1825" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.35"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+    <visual>
+      <origin xyz="-0.13 -0.09 0.1825" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.004" length="0.35"/></geometry>
+      <material name="metal_grey"/>
+    </visual>
+  </link>
+
+  <joint name="joint_base_to_middle" type="fixed">
+    <parent link="base_link"/>
+    <child link="middle_plate"/>
+    <origin xyz="0 0 0.095" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= LAPTOP (visual only, sits on middle plate) ================= -->
+  <link name="laptop_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.32 0.22 0.02"/></geometry>
+      <material name="laptop_silver"/>
+    </visual>
+    <inertial>
+      <mass value="1.4"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.005693" ixy="0" ixz="0" iyy="0.011993" iyz="0" izz="0.017593"/>
+    </inertial>
+  </link>
+
+  <joint name="joint_middle_to_laptop" type="fixed">
+    <parent link="middle_plate"/>
+    <child link="laptop_link"/>
+    <origin xyz="-0.02 0 0.0175" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= TOP PLATE ================= -->
+  <!-- 13 in x 9 in = 0.3302 m x 0.2286 m, thickness assumed 1 cm -->
+  <link name="top_plate">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.3302 0.2286 0.01"/></geometry>
+      <material name="wood"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.3302 0.2286 0.01"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.3"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0013090" ixy="0" ixz="0" iyy="0.0027283" iyz="0" izz="0.0040323"/>
+    </inertial>
+  </link>
+
+  <joint name="joint_middle_to_top" type="fixed">
+    <parent link="middle_plate"/>
+    <child link="top_plate"/>
+    <origin xyz="0 0 0.3625" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= CAMERA (OAK-D Pro, black, front edge of top plate) ================= -->
+  <link name="camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.091 0.032 0.032"/></geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><box size="0.032 0.091 0.032"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0000171" ixy="0" ixz="0" iyy="0.0000775" iyz="0" izz="0.0000775"/>
+    </inertial>
+  </link>
+
+  <joint name="joint_top_to_camera" type="fixed">
+    <parent link="top_plate"/>
+    <child link="camera_link"/>
+    <origin xyz="0.17 0 -0.01" rpy="0 0 1.5708"/>
+  </joint>
+
+  <!-- optional: camera optical frame, useful if you feed this into RTAB-Map/ROS -->
+  <link name="camera_optical_frame"/>
+  <joint name="joint_camera_to_optical" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+
+</robot>
