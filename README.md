@@ -1,6 +1,6 @@
-# Mobile Manipulation Robot (V0)
+# PIPER - Mobile Robot (V0)
 
-A ROS 2-based mobile manipulation platform integrating autonomous navigation, multi-modal SLAM, 3D LiDAR perception, and robotic arm control.
+A ROS 2-based mobile platform integrating autonomous navigation, multi-modal SLAM, 3D LiDAR perception, and robotic arm control.
 
 The repository brings together multiple robotics subsystems, including **Point-LIO 3D LiDAR-Inertial SLAM**, **Cartographer**, **RTAB-Map visual SLAM**, **Nav2 autonomous navigation**, and robotic arm hardware and simulation configurations.
 
